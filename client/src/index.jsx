@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import CowList from "./cowList";
+import CowForm from "./cowForm";
 
 import requests from "./requests";
 
@@ -32,7 +33,7 @@ class App extends React.Component {
     this.setState( { currentCow: cow } );
   }
 
-  handleForm(event) {
+  handleSubmit(event) {
 
   }
 
@@ -43,7 +44,7 @@ class App extends React.Component {
         <h3 id="cow-description">{this.state.currentCow.description}</h3>
         <div><CowList entries={this.state.cowList} handler={this.handleCowClick.bind(this)} /></div>
         <h4>Create a cow:</h4>
-        {/* <CowForm handler={this.handleForm.bind(this)} /> */}
+        <CowForm handler={this.handleSubmit.bind(this)} />
       </div>
     );
   }
