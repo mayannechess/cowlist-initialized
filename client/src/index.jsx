@@ -17,9 +17,14 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.getCows();
+  }
+
   getCows() {
     requests.fetchCows((data) => {
-      this.setState( { cowList: cows} );
+      // console.log("cows gotten:", data);
+      this.setState( { cowList: data } );
     });
   }
 
@@ -38,7 +43,7 @@ class App extends React.Component {
         <h3 id="cow-description">{this.state.currentCow.description}</h3>
         <div><CowList entries={this.state.cowList} handler={this.handleCowClick.bind(this)} /></div>
         <h4>Create a cow:</h4>
-        <CowForm handler={this.handleForm.bind(this)} />
+        {/* <CowForm handler={this.handleForm.bind(this)} /> */}
       </div>
     );
   }
@@ -46,3 +51,4 @@ class App extends React.Component {
 
 var mountNode = document.getElementById("app");
 ReactDOM.render(<App/>, mountNode);
+
