@@ -18,9 +18,15 @@ class CowForm extends React.Component {
     });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    event.target.reset();
+    this.props.handler(this.state.cowName, this.state.cowDescription);
+  }
+
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit.bind(this)}>
         <label>
           Name:
           <input type="text" name="cowName" onChange={this.handleInputChange.bind(this)} />
