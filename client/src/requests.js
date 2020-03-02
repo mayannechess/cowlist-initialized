@@ -33,6 +33,30 @@ const requests = {
         callback(response);
       }
     });
+  },
+
+  updateCow: (name, description, callback) => {
+    if (name) {
+      $.ajax({
+        method: "PUT",
+        url: `http://127.0.0.1:3000/api/cows/${name}`,
+        contentType: "application/json",
+        data: JSON.stringify({
+          description: description
+        }),
+        success: (data) => {
+          console.log("Update cow request successful");
+          const updatedCow = {
+            name: name,
+            description: description
+          };
+          callback(null, updatedCow);
+        },
+        error: (response) => {
+          callback(response);
+        }
+      });
+    }
   }
 
 }

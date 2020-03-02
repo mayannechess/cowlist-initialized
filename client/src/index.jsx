@@ -25,7 +25,7 @@ class App extends React.Component {
       if (err) {
         console.error(err);
       } else {
-      this.setState( { cowList: data } );
+        this.setState( { cowList: data } );
       }
     });
   }
@@ -49,7 +49,16 @@ class App extends React.Component {
   }
 
   updateCow(name, description) {
-
+    requests.updateCow(name, description, (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        this.getCows();
+        this.setState({
+          currentCow: {}
+        });
+      }
+    });
   }
 
   render() {

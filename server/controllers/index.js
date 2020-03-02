@@ -26,5 +26,21 @@ module.exports = {
           }
         });
       }
+  },
+
+  name: {
+    put: function (req, res) {
+      req.body.name = req.params.name;
+      models.name.put(req.body, (err, result) => {
+        if (err) {
+          res.status(500);
+          console.error(err);
+          res.send("Error updating cow");
+        } else {
+          res.status(201);
+          res.send(result);
+        }
+      });
+    }
   }
 };

@@ -22,5 +22,18 @@ module.exports = {
           useResponse(err);
         });
     }
+  },
+  name: {
+    put: function (updateObj, useResponse) {
+      console.log("put updateObj is", updateObj);
+      db.queryAsync("UPDATE cows SET description = ? WHERE name = ?", [updateObj.description, updateObj.name])
+        .then((results) => {
+          console.log("put results:", results);
+          useResponse(null, results);
+        })
+        .catch((err) => {
+          useResponse(err);
+        });
+    }
   }
 };
