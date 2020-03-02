@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import CowList from "./cowList";
 import CowForm from "./cowForm";
+import UpdateForm from "./updateForm";
 
 import requests from "./requests";
 
@@ -10,11 +11,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentCow: { id: 1, name: "Daisy", description: "A flower with lots of petals" },
-      cowList: [
-        { id: 1, name: "Daisy", description: "A flower with lots of petals" },
-        { id: 2, name: "Kitten", description: "A baby cat" }
-      ]
+      currentCow: {},
+      cowList: []
     };
   }
 
@@ -24,7 +22,11 @@ class App extends React.Component {
 
   getCows() {
     requests.fetchCows((err, data) => {
+      if (err) {
+        console.error(err);
+      } else {
       this.setState( { cowList: data } );
+      }
     });
   }
 
@@ -34,12 +36,20 @@ class App extends React.Component {
       description: description
     };
     requests.addCow(newCow, (err, data) => {
+      if (err) {
+        console.error(err);
+      } else {
       this.getCows();
+      }
     });
   }
 
   handleCowClick(cow) {
     this.setState( { currentCow: cow } );
+  }
+
+  updateCow(name, description) {
+
   }
 
   render() {
@@ -50,6 +60,8 @@ class App extends React.Component {
         <div><CowList entries={this.state.cowList} handler={this.handleCowClick.bind(this)} /></div>
         <h4>Create a cow:</h4>
         <CowForm handler={this.addCow.bind(this)} />
+        <br />
+        <UpdateForm cows={this.state.cowList} handler={this.updateCow.bind(this)} />
       </div>
     );
   }
